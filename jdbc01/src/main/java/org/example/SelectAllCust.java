@@ -52,8 +52,12 @@ public class SelectAllCust {
             if (pstmt != null) {
                 try{
                     pstmt.close();
-                }catch (SQLException e){
-            }
+                }catch (SQLException e){}
         }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {}
+            }
     }
 }
