@@ -1,8 +1,8 @@
-package shop;
+package shop.frame;
 
 import java.util.List;
 
-public interface SmService<V, K> {
+public interface SmService<V,K> {
     void register(V v);
     void modify(V v);
     void remove(K k);

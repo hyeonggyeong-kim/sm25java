@@ -1,4 +1,4 @@
-package shop;
+package shop.frame;
 
 import java.util.List;
 

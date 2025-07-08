@@ -1,4 +1,7 @@
-package shop;
+package shop.repository;
+
+import shop.dto.CustDto;
+import shop.frame.SmRepository;
 
 import java.util.ArrayList;
 import java.util.List;
