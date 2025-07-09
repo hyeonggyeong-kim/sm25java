@@ -1,21 +1,21 @@
 package edu.sm.service;
 
-import edu.sm.dto.Cust;
+import edu.sm.dto.Product;
 import edu.sm.frame.ConnectionPool;
 import edu.sm.frame.SmService;
-import edu.sm.repository.CustRepository;
+import edu.sm.repository.ProductRepository;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CustService implements SmService<Cust, String> {
+public class ProductService implements SmService<Product, Integer> {
 
-    CustRepository custRepository;
+    ProductRepository productRepository;
     ConnectionPool connectionPool;
 
-    public CustService() {
-        this.custRepository = new CustRepository();
+    public ProductService() {
+        this.productRepository = new ProductRepository();
         try {
             connectionPool = ConnectionPool.create();
         } catch (SQLException e) {
@@ -24,17 +24,16 @@ public class CustService implements SmService<Cust, String> {
     }
 
     @Override
-    public void register(Cust cust) throws Exception {
+    public void register(Product product) throws Exception {
         Connection conn = connectionPool.getConnection();
         try {
             conn.setAutoCommit(false);
-            custRepository.insert(cust, conn);
-            //custRepository.insert(cust, conn);
+            productRepository.insert(product, conn);
             conn.commit();
-        }catch(Exception e){
+        } catch(Exception e) {
             conn.rollback();
             throw e;
-        }finally {
+        } finally {
             if (conn != null) {
                 connectionPool.releaseConnection(conn);
             }
@@ -42,16 +41,16 @@ public class CustService implements SmService<Cust, String> {
     }
 
     @Override
-    public void modify(Cust cust) throws Exception {
+    public void modify(Product product) throws Exception {
         Connection conn = connectionPool.getConnection();
-        try{
+        try {
             conn.setAutoCommit(false);
-            custRepository.update(cust, conn);
+            productRepository.update(product, conn);
             conn.commit();
-        }catch(Exception e){
+        } catch(Exception e) {
             conn.rollback();
             throw e;
-        }finally {
+        } finally {
             if (conn != null) {
                 connectionPool.releaseConnection(conn);
             }
@@ -59,16 +58,16 @@ public class CustService implements SmService<Cust, String> {
     }
 
     @Override
-    public void remove(String s) throws Exception {
+    public void remove(Integer productId) throws Exception {
         Connection conn = connectionPool.getConnection();
-        try{
+        try {
             conn.setAutoCommit(false);
-            custRepository.delete(s, conn);
+            productRepository.delete(productId, conn);
             conn.commit();
-        }catch(Exception e){
+        } catch(Exception e) {
             conn.rollback();
             throw e;
-        }finally {
+        } finally {
             if (conn != null) {
                 connectionPool.releaseConnection(conn);
             }
@@ -76,14 +75,14 @@ public class CustService implements SmService<Cust, String> {
     }
 
     @Override
-    public List<Cust> get() throws Exception {
-        List<Cust> list = null;
+    public List<Product> get() throws Exception {
+        List<Product> list = null;
         Connection conn = connectionPool.getConnection();
-        try{
-            list = custRepository.selectAll(conn);
-        }catch(Exception e){
+        try {
+            list = productRepository.selectAll(conn);
+        } catch(Exception e) {
             throw e;
-        }finally {
+        } finally {
             if (conn != null) {
                 connectionPool.releaseConnection(conn);
             }
@@ -92,18 +91,18 @@ public class CustService implements SmService<Cust, String> {
     }
 
     @Override
-    public Cust get(String s) throws Exception {
-        Cust cust = null;
+    public Product get(Integer productId) throws Exception {
+        Product product = null;
         Connection conn = connectionPool.getConnection();
-        try{
-            cust = custRepository.select(s, conn);
-        }catch(Exception e){
+        try {
+            product = productRepository.select(productId, conn);
+        } catch(Exception e) {
             throw e;
-        }finally {
+        } finally {
             if (conn != null) {
                 connectionPool.releaseConnection(conn);
             }
         }
-        return cust;
+        return product;
     }
 }

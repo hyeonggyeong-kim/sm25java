@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ConnectionPool {
+
     private List<Connection> connectionPool;
     private List<Connection> usedConnections = new ArrayList<>();
     private static int INITIAL_POOL_SIZE = 3;

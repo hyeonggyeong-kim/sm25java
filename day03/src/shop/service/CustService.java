@@ -9,16 +9,16 @@ import java.util.List;
 
 public class CustService implements SmService<CustDto, String> {
 
-    SmRepository<CustDto, String> smRepository;
+    SmRepository<CustDto, String> smService;
 
     public CustService() {
-        smRepository = new CustMySQLRepository();
+        smService = new CustMySQLRepository();
     }
 
     @Override
     public void register(CustDto custDto) {
         System.out.println("CustService: 기본정보 저장");
-        smRepository.insert(custDto);
+        smService.insert(custDto);
         System.out.println("CustService: SMS 전송");
         System.out.println("CustService: EMAIL 전송");
         System.out.println("CustService: 회원가입 완료");
@@ -27,7 +27,7 @@ public class CustService implements SmService<CustDto, String> {
     @Override
     public void modify(CustDto custDto) {
         System.out.println("CustService: 기본정보 수정");
-        smRepository.update(custDto);
+        smService.update(custDto);
         System.out.println("CustService: SMS 전송");
         System.out.println("CustService: 회원정보 수정 완료");
     }
@@ -35,7 +35,7 @@ public class CustService implements SmService<CustDto, String> {
     @Override
     public void remove(String s) {
         System.out.println("CustService: 기본정보 삭제");
-        smRepository.delete(s);
+        smService.delete(s);
         System.out.println("CustService: SMS 전송");
         System.out.println("CustService: 회원정보 삭제 완료");
     }
@@ -43,14 +43,14 @@ public class CustService implements SmService<CustDto, String> {
     @Override
     public List<CustDto> get() {
         List<CustDto> custs = null;
-        custs = smRepository.selectAll();
+        custs = smService.selectAll();
         return custs;
     }
 
     @Override
     public CustDto get(String s) {
         CustDto custDto = null;
-        custDto = smRepository.select(s);
+        custDto = smService.select(s);
         return custDto;
     }
 }
